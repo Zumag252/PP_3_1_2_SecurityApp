@@ -5,7 +5,10 @@
   <title>New User</title>
 </head>
 <body>
-
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <h1>New user</h1>
 <form th:method="POST" th:action="@{/admin}" th:object="${user}">
   <label for="username">Enter username: </label>
@@ -24,18 +27,24 @@
   <input type="text" th:field="*{password}" id="password"/>
   <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
   <br/>
-  <label for="roles">Roles: </label>
-  <select multiple="multiple" th:field="*{roles}" id="roles">
-    <option th:each="role : ${roles}"
-            th:value="${role.getId()}"
-            th:text="${role.getName()}"></option>
-  </select>
+  <div>
+    <p>
+      <label>Roles:
+        <input type="checkbox" name="roles"
+               th:each="role : ${roles}"
+               th:text="${role.getRole_name()}"
+               th:value="${role.getRole_name()}"
+               th:field="*{roles}"
+        />
+      </label>
+    </p>
+  </div>
+  <input type="submit" value="Подтвердить"/>
   <br/>
-  <input type="submit" value="Create"/>
 </form>
 <br><br>
 <form action="/logout">
-  <button type="submit">Разлогиниться</button>
+  <button type="submit">Выйти из сайта</button>
 </form>
 </body>
 </html>
