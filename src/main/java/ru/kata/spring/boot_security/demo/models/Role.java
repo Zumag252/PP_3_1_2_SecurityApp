@@ -5,7 +5,8 @@ import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.util.List;
+
 
 @Entity
 @Table(name = "roles")
@@ -16,16 +17,16 @@ public class Role implements GrantedAuthority {
     private long id;
     @Column(name = "name", unique = true)
     @Size(min = 2, message = "Минимальное название роли должно содержать от 2 символов")
-    private String name;
+    private String role_name;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private Set<User> users;
+    private List<User> users;
 
     public Role() {
     }
 
     public Role(String name) {
-        this.name = name;
+        this.role_name = name;
     }
 
     public long getId() {
@@ -36,19 +37,19 @@ public class Role implements GrantedAuthority {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRole_name() {
+        return role_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRole_name(String role_name) {
+        this.role_name = role_name;
     }
 
-    public Set<User> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
@@ -56,12 +57,12 @@ public class Role implements GrantedAuthority {
     public String toString() {
         return "Role{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name='" + role_name + '\'' +
                 '}';
     }
 
     @Override
     public String getAuthority() {
-        return getName();
+        return getRole_name();
     }
 }
